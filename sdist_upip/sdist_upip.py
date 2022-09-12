@@ -1,12 +1,6 @@
-# This module is part of Pycopy https://github.com/pfalcon/pycopy
-# and pycopy-lib https://github.com/pfalcon/pycopy-lib, projects to
-# create a (very) lightweight full-stack Python distribution.
-#
-# Copyright (c) 2016-2019 Paul Sokolovsky
-# Licence: MIT
 #
 # This module overrides distutils (also compatible with setuptools) "sdist"
-# command to perform pre- and post-processing as required for Pycopy's
+# command to perform pre- and post-processing as required for MicroPython's
 # upip package manager.
 #
 # Preprocessing steps:
@@ -39,7 +33,7 @@ def gzip_4k(inf, fname):
                 break
             outf.write(comp.compress(data))
         outf.write(comp.flush())
-    os.remove(fname)
+    os.rename(fname, fname + ".orig")
     os.rename(fname + ".out", fname)
 
 
@@ -52,7 +46,6 @@ FILTERS = [
 
 
 outbuf = io.BytesIO()
-
 
 def filter_tar(name):
     fin = tarfile.open(name, "r:gz")
@@ -92,11 +85,7 @@ def make_resource_module(manifest_files):
     resources = []
     # Any non-python file included in manifest is resource
     for fname in manifest_files:
-        ext = fname.rsplit(".", 1)
-        if len(ext) > 1:
-            ext = ext[1]
-        else:
-            ext = ""
+        ext = fname.rsplit(".", 1)[1]
         if ext != "py":
             resources.append(fname)
 
@@ -128,6 +117,7 @@ def make_resource_module(manifest_files):
 
 
 class sdist(_sdist):
+
     def run(self):
         self.filelist = FileList()
         self.get_file_list()
