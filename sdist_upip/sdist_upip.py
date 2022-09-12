@@ -33,7 +33,7 @@ def gzip_4k(inf, fname):
                 break
             outf.write(comp.compress(data))
         outf.write(comp.flush())
-    os.rename(fname, fname + ".orig")
+    os.remove(fname)
     os.rename(fname + ".out", fname)
 
 
