@@ -14,7 +14,8 @@ if release_version_search:
     release_version = release_version_search.group()
     print(f'Version: {release_version}')
 else:
-    raise ValueError("Version was not found")
+    release_version = version_reference
+    print(f'Version: {release_version}')
 
 setup(
     name="micropython-iotmanager",
