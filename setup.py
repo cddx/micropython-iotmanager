@@ -29,7 +29,7 @@ class CleanCommand(Command):
 
 setup(
     name="micropython-iotmanager",
-    version="0.2.0",
+    version="0.2.1",
     author="Oliver Fueckert",
     author_email="oliver@fueckert.com",
     description="IoT Manager for ESP32 supporting WiFi config and OTA",
@@ -47,5 +47,5 @@ setup(
         "sdist": sdist_upip.sdist,
         "clean": CleanCommand,
     },
-    py_modules=["IotManager"],
+    py_modules=["iotmanager"],
 )

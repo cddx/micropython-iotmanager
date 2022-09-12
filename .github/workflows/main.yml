@@ -13,6 +13,8 @@ jobs:
             python-version: "3.10"
         - name: Build distribution
           run: python3 setup.py sdist
+        - name: Show build
+          run: ls -al ./dist
         - name: Publish distribution to Test PyPI
           uses: pypa/gh-action-pypi-publish@release/v1
           with:
