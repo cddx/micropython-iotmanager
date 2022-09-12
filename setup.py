@@ -8,13 +8,14 @@ from setuptools import setup
 sys.path.append("./sdist_upip")
 import sdist_upip
 
-version_reference = os.getenv('GITHUB_REF', default='0.2.2')
+version = '0.2.2'
+version_reference = os.getenv('GITHUB_REF', default=version)
 release_version_search = re.search(r'(\d+.\d+.\d+)', version_reference)
 if release_version_search:
     release_version = release_version_search.group()
     print(f'Version: {release_version}')
 else:
-    release_version = version_reference
+    release_version = version
     print(f'Version: {release_version}')
 
 setup(
